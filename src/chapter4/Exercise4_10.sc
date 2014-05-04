@@ -1,0 +1,30 @@
+
+val rot13 = (('a' to 'z') mkString "").zip("nopqrstuvwxyzabcdefghijklm").toMap
+
+"hello" map rot13
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
