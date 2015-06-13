@@ -1,4 +1,4 @@
-import java.util.{HashMap => JavaHashMap }
+import java.util.{HashMap => JavaHashMap}
 import scala.collection.mutable.{HashMap => ScalaHashMap}
 import scala.collection.JavaConversions.mapAsScalaMap
 
@@ -13,5 +13,5 @@ javaHashMap.put("Lieke", "Boon")
 
 val scalaHashMap = javaHashMap
 
-scalaHashMap.foreach(e=> println(e))
+scalaHashMap.foreach(e => println(e))
 
