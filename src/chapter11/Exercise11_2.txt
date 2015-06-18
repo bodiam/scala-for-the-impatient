@@ -1,5 +1,0 @@
-// ^ has too low precedence
-// ** would have same precedence as *, which wouldn't be
-// intuitive, e.g. 2 * 3 ** 4 = (2*3)**4, whereas one would expect 2 * (3**4)
-
-

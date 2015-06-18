@@ -1,3 +1,0 @@
-name    age
-Erik    34
-Lieke   25

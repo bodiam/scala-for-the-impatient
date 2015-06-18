@@ -2,45 +2,46 @@ class BankAccount(initialBalance: Double) {
   private var balance = initialBalance
 
   def currentBalance = balance
-
-  def deposit(amount: Double) = {
-    balance += amount
-  }
-
-  def withdraw(amount: Double) = {
-    balance -= amount
-  }
+  def deposit(amount: Double) = { balance += amount; balance }
+  def withdraw(amount: Double) = { balance -= amount; balance }
 }
 
-class SavingsAccount(initialBalance: Double,
-                     yearlyInterest: Double = 0.1,
-                     freeTransactions: Int = 3,
-                     comission: Int = 1
-                      ) extends BankAccount(initialBalance) {
+class SavingsAccount(initialBalance: Double, interestRate: Double) extends BankAccount(initialBalance) {
 
-  var transactionsInMonth = 0
-
-
-  override def deposit(amount: Double): Unit = {
-    transactionsInMonth += 1
-
-    super.deposit(amount - (if (isFreeTransaction) 0 else comission))
-  }
-
-  override def withdraw(amount: Double): Unit = {
-    transactionsInMonth += 1
-
-    super.withdraw(amount + (if (isFreeTransaction) 0 else comission))
-  }
-
-  private def isFreeTransaction: Boolean = {
-    transactionsInMonth < freeTransactions
-  }
+  var counter : Int = 0
 
   def earnMonthlyInterest() = {
-    transactionsInMonth = 0
+    currentBalance * (1 + interestRate)
+    counter = 0
+  }
+  override def withdraw(amount: Double) : Double = {
+    counter = counter + 1
 
-    super.deposit(super.currentBalance * yearlyInterest / 12)
+    if(counter <= 3) {
+      super.withdraw(amount)
+    } else {
+      super.withdraw(amount + 1)
+    }
+  }
+
+  override def deposit(amount: Double) : Double = {
+    counter = counter + 1
+
+    if(counter <= 3) {
+      super.deposit(amount)
+    } else {
+      super.deposit(amount - 1)
+    }
   }
 }
-
+val account: SavingsAccount = new SavingsAccount(100, 0.05)
+println(account.currentBalance)
+println(account.withdraw(10))
+println(account.withdraw(10))
+println(account.withdraw(10))
+println(account.withdraw(10))
+println(account.deposit(10))
+account.earnMonthlyInterest()
+println(account.deposit(10))
+println(account.deposit(10))
+println(account.currentBalance)

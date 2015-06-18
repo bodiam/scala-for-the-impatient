@@ -1,21 +1,17 @@
-class Point(val x: Int, val y: Int) {
-  override def toString = "Point(%d, %d)".format(x, y)
-}
+case class Point(x: Double, y: Double)
+
 
 abstract class Shape {
   def centerPoint: Point
-  override def toString = "%s(Center: %s)".format(this.getClass.getSimpleName, centerPoint.toString)
 }
 
-class Rectangle(val topLeft: Point, val bottomRight: Point) extends Shape {
-  override val centerPoint = new Point((bottomRight.x - topLeft.x) / 2, (bottomRight.y - topLeft.y) / 2)
+class Rectangle(x: Double, y: Double, w: Double, h: Double) extends Shape {
+  override def centerPoint: Point = new Point(x + w/2, y+h/2)
 }
 
-class Circle(override val centerPoint: Point, val radius: Int) extends Shape
+val rectangle: Rectangle = new Rectangle(10, 20, 5, 10)
+rectangle.centerPoint
 
 
-val r = new Rectangle(new Point(0,0), new Point(10, 10))
-println(r)
 
-val c = new Circle(new Point(7, 7), 10)
-println(c)
+
